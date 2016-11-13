@@ -3,7 +3,7 @@
 #include <avr/pgmspace.h>
 #include "sha1.h"
 
-#include "debugstuff.c"
+// #include "debugstuff.c"
 
 #define SHA1_K0 0x5a827999
 #define SHA1_K20 0x6ed9eba1

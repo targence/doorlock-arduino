@@ -1,10 +1,10 @@
-#include <Password.h>
-#include <Keypad.h>
-#include <sha1.h>
-#include <TOTP.h>
+#include "src/Password/Password.h"
+#include "src/Keypad/Keypad.h"
+/* #include "src/Sha/sha1.h" */
+#include "src/TOTP/TOTP.h"
 #include <Wire.h>
-#include <Time.h>
-#include <DS1307RTC.h>
+/* #include "src/DS1307RTC/Time.h" */
+#include "src/DS1307RTC/DS1307RTC.h"
 
 // Change it!
 // http://www.lucadentella.it/OTP/
