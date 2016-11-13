@@ -1,9 +1,7 @@
 #include "src/Password/Password.h"
 #include "src/Keypad/Keypad.h"
-/* #include "src/Sha/sha1.h" */
 #include "src/TOTP/TOTP.h"
 #include <Wire.h>
-/* #include "src/DS1307RTC/Time.h" */
 #include "src/DS1307RTC/DS1307RTC.h"
 
 // Change it!
@@ -42,7 +40,10 @@ Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 int pinSpeaker = 10;
 
 void setup() {
-
+  
+  // set RTC first
+  // RTC.set(1479036691 );
+  
   pinMode(buttonPin, INPUT);
   pinMode(lockPin, OUTPUT);
   digitalWrite(lockPin, HIGH);
@@ -75,8 +76,6 @@ void loop() {
   }
 }
 
-
-// take care of some special events
 
 void keypadEvent(KeypadEvent eKey) {
   switch (keypad.getState()) {
