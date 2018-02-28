@@ -29,13 +29,11 @@ char keys[ROWS][COLS] = {
   {'*', '0', '#',}
 };
 
-// initial password, will be overwriten
+// initial password, will be overwriten in ~5 min
 Password password = Password( "00000" );
 
 byte rowPins[ROWS] = {28, 26, 24, 22}; // connect to the row pinouts of the keypad
 byte colPins[COLS] = {34, 32, 30}; // connect to the column pinouts of the keypad
-const int buttonPin = 7;
-int buttonState = 0;
 
 Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 
@@ -47,12 +45,9 @@ void setup() {
 // set RTC first
 // RTC.set(1519833646);
   
-  pinMode(buttonPin, INPUT);
   pinMode(lockPin, OUTPUT);
-  digitalWrite(lockPin, HIGH);
-
+  digitalWrite(lockPin, LOW);
   Serial.begin(9600);
-  Serial2.begin(9600);
 
   keypad.addEventListener(keypadEvent); // add an event listener for this keypad
   keypad.setDebounceTime(250);
@@ -74,17 +69,13 @@ void loop() {
   }
 
   keypad.getKey();
-  buttonState = digitalRead(buttonPin);
-  if (buttonState == HIGH) {
-    Serial.println();
-  }
 }
 
 
 void keypadEvent(KeypadEvent eKey) {
   switch (keypad.getState()) {
     case PRESSED:
-      Serial.print(eKey);
+      Serial.println(eKey);
       switch (eKey) {
         case '#':
           guessPassword();
@@ -93,7 +84,7 @@ void keypadEvent(KeypadEvent eKey) {
         default:
           password.append(eKey);
           tone(10, 4800, 100);
-          delay(30);
+          delay(5);
       }
   }
 }
@@ -106,20 +97,18 @@ void openDoor() {
     tone(10, 5000, 100);
     delay(300);
     tone(10, 5000, 100);
-    digitalWrite(lockPin, LOW);
+    digitalWrite(lockPin, HIGH);
     Serial.println("OPENING DOOR ");
     delay(1000);
-    digitalWrite(lockPin, HIGH);
+    digitalWrite(lockPin, LOW);
   }
 
 void guessPassword() {
     
   if (password.evaluate()) {
-
     Serial.println("VALID PASSWORD ");
     Serial.println();
     password.reset(); // resets password after correct entry
-
     openDoor();
   }
 
