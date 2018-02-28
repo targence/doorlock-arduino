@@ -6,8 +6,11 @@
 
 // Change it!
 // http://www.lucadentella.it/OTP/
+// for test 0000000000
 
-uint8_t hmacKey[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+// test Google Authenticator code:
+// GAYDAMBQGAYDAMBQ
+uint8_t hmacKey[] = {0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30};
 
 // And use this link for testing
 // http://blog.tinisles.com/2011/10/google-authenticator-one-time-password-algorithm-in-javascript/
@@ -41,8 +44,8 @@ int pinSpeaker = 10;
 
 void setup() {
   
-  // set RTC first
-  // RTC.set(1479036691 );
+// set RTC first
+// RTC.set(1519833646);
   
   pinMode(buttonPin, INPUT);
   pinMode(lockPin, OUTPUT);
@@ -59,7 +62,8 @@ void setup() {
 
 void loop() {
   long GMT = RTC.get() + 31; // RTC time + adjustment
-
+//  Serial.println(GMT);
+  
   char* newCode = totp.getCode(GMT);
 
   if (strcmp(code, newCode) != 0) {
@@ -94,8 +98,7 @@ void keypadEvent(KeypadEvent eKey) {
   }
 }
 
-void openDoor()
-{
+void openDoor() {
     tone(10, 5000, 100);
     delay(300);
     tone(10, 5000, 100);
