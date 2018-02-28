@@ -13,6 +13,7 @@
 uint8_t hmacKey[] = {0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30};
 
 // And use this link for testing
+// https://gauth.apps.gbraad.nl/#main
 // http://blog.tinisles.com/2011/10/google-authenticator-one-time-password-algorithm-in-javascript/
 
 TOTP totp = TOTP(hmacKey, 10);
